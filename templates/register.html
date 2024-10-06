@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<header>
+    <h1>Welcome to my AWS Web Application.</h1>
+</header>
+
+<!-- Display last message -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div id="flash-message" class="{{ messages[-1][0] }}">
+      {{ messages[-1][1] }}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<!-- Set message to dissapear after  a short time -->
+<script>
+  setTimeout(function() {
+    var flashMessage = document.getElementById('flash-message');
+    if (flashMessage) {
+      flashMessage.style.display = 'none';
+    }
+  }, 3000); // 3 seconds
+</script>
+<div style="display: flex; justify-content: space-around;">
+    <!-- Registration Form -->
+    <section>
+        <h2>Register</h2>
+        <form method="POST" action="/register">
+            Username: <input type="text" name="username" required><br>
+            Password: <input type="password" name="password" required><br>
+            First Name: <input type="text" name="firstname" required><br>
+            Last Name: <input type="text" name="lastname" required><br>
+            Email: <input type="text" name="email" required><br>
+            <input type="submit" value="Register">
+        </form>
+    </section>
+
+    <!-- Login Form -->
+    <section>
+        <h2>Login</h2>
+        <form method="POST" action="/login">
+            Username: <input type="text" name="username" required><br>
+            Password: <input type="password" name="password" required><br>
+            <input type="submit" value="Login">
+        </form>
+
+        {% if error %}
+        <p style="color:red">{{ error }}</p>
+        {% endif %}
+    </section>
+</div>
+</body>
+</html>

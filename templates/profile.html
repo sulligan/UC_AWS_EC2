@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div id="flash-message" class="{{ messages[-1][0] }}">
+      {{ messages[-1][1] }}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<!--  message disappears after a short time -->
+<script>
+  setTimeout(function() {
+    var flashMessage = document.getElementById('flash-message');
+    if (flashMessage) {
+      flashMessage.style.display = 'none';
+    }
+  }, 3000); // 3 seconds
+</script>
+<body>
+    <h2>User Profile</h2>
+    <p>Username: {{ user[1] }}</p>
+    <p>First Name: {{ user[3] }}</p>
+    <p>Last Name: {{ user[4] }}</p>
+    <p>Email: {{ user[5] }}</p>
+    <a href="/logout">Logout</a>
+    <hr>
+    <p>Words in limerick file: {{ wordcount }}</p>
+    <a href="/download/limerick-1.txt">Limerick download link</a>
+
+</body>
+</html>
